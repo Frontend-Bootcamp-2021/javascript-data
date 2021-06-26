@@ -1,11 +1,137 @@
 .home {
-  background-color: $home-bgcolor;
+	max-width: 1440px;
+
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+	justify-content: space-between;
+	flex-wrap: wrap;
+
+	counter-reset: group;
 
 	// NOTES: set CSS variables on assets/scss/globals/_variables.scss
 	// background-color: var(--home-color);
 
-  @include mq(tablet, min) {
-    background-color: #800080;
-  }
+}
 
+.groups {
+	$groups: &;
+	flex-grow: 0;
+	flex-shrink: 0;
+
+	margin: 10px 0;
+	padding: 16px;
+
+	min-width: calc((100% - 20px * 3) / 4);
+	min-height: 320px;
+
+	position: relative;
+
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
+
+	border-radius: 12px;
+	border: 16px solid $group-card-border;
+	background-color:$group-card-bgcolor;
+	box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.1);
+  transition: all 0.6s cubic-bezier(.25,.8,.25,1);
+
+	&:hover {
+		box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.4);
+	}
+
+	counter-reset: item;
+
+	&::before {
+		counter-increment: group;
+		content: "Grup " counter(group);
+		writing-mode: vertical-rl;
+		text-orientation: sideways;
+
+		align-self: flex-end;
+    position: absolute;
+
+		font-size: 48px;
+		font-weight: bold;
+		text-transform: uppercase;
+		color: $group-card-number;
+	}
+
+	&__item {
+		margin: 0;
+		padding: 8px 0;
+
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: flex-start;
+
+		list-style: none;
+
+		font-size: 16px;
+		text-transform: capitalize;
+
+		&.-duplicate {
+			text-decoration: line-through;
+		}
+
+		&:nth-child(1) {
+			border-bottom: 2px solid $group-card-bgcolor;
+
+			font-size: 18px;
+			font-weight: bold;
+
+			&:before {
+				content: '';
+
+				margin: 0 10px 0 0;
+
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+
+				font-size: 28px;
+
+				#{$groups}.-purple & {
+					content: '🦄';
+				}
+
+				$emojies: ("maroon":"🦧", "puce":"🐙", "fuscia":"🦩", "goldenrod":"🐪", "yellow":"🐱", "turquoise":"🦋", "aquamarine":"🐟", "pink":"🐹", "khaki":"🙈", "crimson":"🦀", "orange":"🦊");
+				@each $text, $emoji  in $emojies {
+					#{$groups}.-#{$text} & {
+						content: $emoji;
+					}
+				}
+			}
+		}
+
+		&:not(:nth-child(1)){
+			color: $list-color;
+
+			&:before {
+				counter-increment: item;
+				content: counter(item);
+
+				margin-right: 10px;
+
+				width: 24px;
+				height: 24px;
+
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+
+				border-radius: 50%;
+				border: 2px solid $group-card-number;
+
+				font-size: 16px;
+				font-weight: bold;
+				color: $group-card-number;
+			}
+		}
+	}
 }
