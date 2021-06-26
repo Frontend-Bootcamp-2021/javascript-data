@@ -1,0 +1,22 @@
+{
+	"name": "responsive-template",
+	"version": "1.0.0",
+	"repository": "https://github.com/Frontend-Bootcamp-2021/responsive-template",
+	"license": "MIT",
+	"scripts": {
+		"start": "parcel serve ./development/*.njk --out-dir local --no-cache",
+		"build": "parcel build ./development/*.njk --out-dir production --no-cache"
+	},
+	"devDependencies": {
+		"nunjucks": "^3.2.3",
+		"parcel-bundler": "^1.12.5",
+		"parcel-plugin-nunjucks": "^2.2.2",
+		"sass": "^1.35.0"
+	},
+	"browserslist": [
+		"last 1 Chrome version"
+	],
+	"dependencies": {
+		"axios": "^0.21.1"
+	}
+}
